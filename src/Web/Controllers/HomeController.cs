@@ -4,15 +4,24 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Web.Models;
 
 namespace Web.Controllers
 {
     public class HomeController : Controller
     {
+        IOptions<Jenkins> options;
+
+
+        public HomeController(IOptions<Jenkins> _options)
+        {
+            options = _options;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            return View("Index", options.Value.BuildNumber);
         }
 
         public IActionResult Privacy()
